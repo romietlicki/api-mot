@@ -1,0 +1,15 @@
+br\com\integrador\model\Anuncio.class
+br\com\integrador\service\AnuncioService.class
+br\com\integrador\repository\UsuarioRepositoryImpl.class
+br\integrador\repository\interfaces\Autenticacao.class
+br\com\integrador\repository\Anuncios.class
+br\com\integrador\service\AutenticaService.class
+br\com\integrador\model\Usuario.class
+br\com\integrador\resources\AnuncioWS.class
+br\com\integrador\repository\AutenticacaoImpl.class
+br\integrador\repository\interfaces\UsuarioRepository.class
+br\com\integrador\resources\AutenticacaoWS.class
+br\com\integrador\util\jpa\EntityManagerProducer.class
+br\com\integrador\service\UsuarioService.class
+br\com\integrador\resources\UsuarioWS.class
+br\com\integrador\model\TipoUsuario.class
