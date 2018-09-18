@@ -25,7 +25,7 @@ public class SmtpMail
                         new javax.mail.Authenticator() {
                              protected PasswordAuthentication getPasswordAuthentication() 
                              {
-                                   return new PasswordAuthentication("rodrigo.mietlicki@gmail.com", "microsoft17");
+                                   return new PasswordAuthentication("fdsfsfsa@gmail.com", "fdsfsdafdas");
                              }
                         });
  
