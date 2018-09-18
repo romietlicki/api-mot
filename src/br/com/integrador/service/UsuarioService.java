@@ -13,4 +13,10 @@ public class UsuarioService {
 		 
 	}
 	
+	public Usuario mudarSenhaUsuario(Usuario user){
+		System.out.println("chegou no service..");
+		return this.usuarioRepositoryImpl.mudarSenhaUsuario(user);
+		 
+	}
+	
 }

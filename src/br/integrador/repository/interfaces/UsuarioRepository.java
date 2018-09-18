@@ -5,5 +5,6 @@ import br.com.integrador.model.Usuario;
 public interface UsuarioRepository {
 
 	public abstract Usuario inserirUsuario(Usuario usuario);
+	public abstract Usuario mudarSenhaUsuario(Usuario usuario);
 	
 }

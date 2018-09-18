@@ -3,6 +3,7 @@ C:\Users\Rodrigo\workspace\integrador\src\br\com\integrador\util\jpa\EntityManag
 C:\Users\Rodrigo\workspace\integrador\src\br\com\integrador\resources\AnuncioWS.java
 C:\Users\Rodrigo\workspace\integrador\src\br\com\integrador\model\TipoUsuario.java
 C:\Users\Rodrigo\workspace\integrador\src\br\integrador\repository\interfaces\Autenticacao.java
+C:\Users\Rodrigo\workspace\integrador\src\br\com\integrador\mail\SmtpMail.java
 C:\Users\Rodrigo\workspace\integrador\src\br\com\integrador\service\UsuarioService.java
 C:\Users\Rodrigo\workspace\integrador\src\br\com\integrador\model\Usuario.java
 C:\Users\Rodrigo\workspace\integrador\src\br\com\integrador\repository\UsuarioRepositoryImpl.java

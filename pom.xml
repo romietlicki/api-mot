@@ -9,7 +9,15 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     
-        <dependencies>
+		   <dependencies>
+		
+			<!-- https://mvnrepository.com/artifact/javax.mail/mail -->
+			<dependency>
+				<groupId>javax.mail</groupId>
+				<artifactId>mail</artifactId>
+				<version>1.4</version>
+			</dependency>
+		        
 
         	<dependency>
                   <groupId>com.sun.jersey</groupId>
