@@ -13,6 +13,10 @@ import javax.persistence.Table;
 import org.codehaus.jackson.annotate.JsonCreator;
 import org.codehaus.jackson.annotate.JsonProperty;
 
+/**
+ * @author Rodrigo
+ *
+ */
 @Entity
 @Table(name = "tarefa")
 public class Tarefa {

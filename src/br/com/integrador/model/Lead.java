@@ -1,13 +1,24 @@
 package br.com.integrador.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
 import org.codehaus.jackson.annotate.JsonCreator;
+import org.codehaus.jackson.annotate.JsonManagedReference;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 /**
@@ -15,14 +26,19 @@ import org.codehaus.jackson.annotate.JsonProperty;
  *
  */
 @Entity
-@Table(name = "config_empresa")
+@Table(name = "lead")
 public class Lead {
 	
 	private int idLead;
 	private String nome;
 	private String email;
+	private double valorOportunidade;
 	private String telefone;
 	private String mensagem;
+	private List<StatusLead> statusLead = new ArrayList<>(); 
+	private Usuario usuario;
+	private Tarefa tarefa;
+	private Anotacao anotacao;
 	
 	public Lead(){
 		super();
@@ -33,14 +49,24 @@ public class Lead {
 	public Lead(@JsonProperty("idLead") int idLead,
 			@JsonProperty("nome") String nome,
 			@JsonProperty("email") String email,
+			@JsonProperty("valorOportunidade") double valorOportunidade,
 			@JsonProperty("telefone") String telefone,
-			@JsonProperty("mensagem") String mensagem) {
+			@JsonProperty("mensagem") String mensagem,
+			@JsonProperty("statusLead") List<StatusLead> statusLead,
+			@JsonProperty("usuario") Usuario usuario,
+			@JsonProperty("tarefa") Tarefa tarefa,
+			@JsonProperty("anotacao") Anotacao anotacao) {
 		super();
 		this.idLead = idLead;
 		this.nome = nome;
 		this.email = email;
+		this.valorOportunidade = valorOportunidade;
 		this.telefone = telefone;
 		this.mensagem = mensagem;
+		this.statusLead = statusLead;
+		this.usuario = usuario;
+		this.tarefa = tarefa;
+		this.anotacao = anotacao;
 	}
 	
 	@Id
@@ -65,6 +91,14 @@ public class Lead {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	@Column(nullable = false, length = 100)
+	public double getValorOportunidade() {
+		return valorOportunidade;
+	}
+	public void setValorOportunidade(double valorOportunidade) {
+		this.valorOportunidade = valorOportunidade;
+	}
+
 	@Column(nullable = false, length = 50)
 	public String getTelefone() {
 		return telefone;
@@ -79,6 +113,52 @@ public class Lead {
 	public void setMensagem(String mensagem) {
 		this.mensagem = mensagem;
 	}
+
+	@JsonManagedReference
+	@OneToMany(mappedBy = "lead", cascade = CascadeType.ALL, orphanRemoval = true)
+	public List<StatusLead> getStatusLead() {
+		return statusLead;
+	}
+
+
+	public void setStatusLead(List<StatusLead> statusLead) {
+		this.statusLead = statusLead;
+	}
+
+	@JsonBackReference
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "usuario_id", nullable = false)
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	@OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "tarefa_id")
+	public Tarefa getTarefa() {
+		return tarefa;
+	}
+
+	
+	public void setTarefa(Tarefa tarefa) {
+		this.tarefa = tarefa;
+	}
+
+	@OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "anotacao_id")
+	public Anotacao getAnotacao() {
+		return anotacao;
+	}
+
+
+	public void setAnotacao(Anotacao anotacao) {
+		this.anotacao = anotacao;
+	}
+	
 	
 	
 

@@ -22,6 +22,7 @@ public class UsuarioWS {
     @Consumes(MediaType.APPLICATION_JSON)
 	public Usuario inserirUsuario(Usuario user){
 		System.out.println("ver se chegou aqui: "+user);
+		user.setLeads(user.getLeads() == null ? null : user.getLeads());
 		System.out.println("chegou ate aqui...");
 		return usuarioService.inserirUsuario(user);
 		 

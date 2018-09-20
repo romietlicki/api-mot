@@ -15,6 +15,10 @@ import org.codehaus.jackson.annotate.JsonBackReference;
 import org.codehaus.jackson.annotate.JsonCreator;
 import org.codehaus.jackson.annotate.JsonProperty;
 
+/**
+ * @author Rodrigo
+ *
+ */
 @Entity
 @Table(name = "status_lead")
 public class StatusLead {

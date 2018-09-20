@@ -1,16 +1,22 @@
 package br.com.integrador.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.swing.JPasswordField;
 
 import org.codehaus.jackson.annotate.JsonCreator;
+import org.codehaus.jackson.annotate.JsonManagedReference;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 /**
@@ -26,6 +32,7 @@ public class Usuario {
 	private String senha;
 	private String email;
 	private TipoUsuario tipo;
+	private List<Lead> leads = new ArrayList<>();
 	
 
 	public Usuario(){
@@ -36,12 +43,14 @@ public class Usuario {
 	public Usuario(@JsonProperty("id") int id,
 			@JsonProperty("username") String username,
 			@JsonProperty("senha") String senha,
-			@JsonProperty("tipo") TipoUsuario tipo) {
+			@JsonProperty("tipo") TipoUsuario tipo,
+			@JsonProperty("leads") List<Lead> leads){
 		super();
 		this.id = id;
 		this.username = username;
 		this.senha = senha;
 		this.tipo = tipo;
+		this.leads = leads;
 	}
 	
 	@Id
@@ -86,7 +95,16 @@ public class Usuario {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
+	@JsonManagedReference
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+	public List<Lead> getLeads() {
+		return leads;
+	}
+
+	public void setLeads(List<Lead> leads) {
+		this.leads = leads;
+	}
 	
 
 }
