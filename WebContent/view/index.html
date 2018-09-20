@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head>
+<meta charset="ISO-8859-1">
+<title>INICIO</title>
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+<body ng-controller="pedidoController"
+	style="margin-left: 35px; margin-right: 20px; margin-bottom: 45px; margin-top:20px">
+	<br>
+		<td> <img src="imagens/logo-vf.png" alt=""> Publicar em:</td>
+		<select ng-model="destinoPost" style="width: 175px; margin-right:20px" ng-change="mudarAnunciante()">
+		<option>selecionar</option>
+		<option value="idOlx">OLX</option>
+		<option value="idMotorizei">MOTORIZEI</option>
+		<option value="idWebMotors">WEBMOTORS</option>
+		</select>
+		
+		<input type="button" ng-model="btMotorizei" ng-style="myBtnMotorizei" value="Publicar Motorizei" style="display:none" class="btn btn default"
+		ng-click="publicarAnuncioMotorizei()">
+		
+		<input type="button" ng-model="btOlx" value="Publicar OLX" ng-style="myBtnOlx" style="display:none" class="btn btn default"
+		ng-click="">
+		
+		<input type="button" ng-model="btWebMotors" style="display:none" ng-style="myBtnWebMotors" value="Publicar Web Motors" class="btn btn default"
+		ng-click="">
+		
+		<input type = "button" class="btn btn default" ng-click="faleConosco()" value="Fale Conosco" style="margin-left:1160px"></input><br><br>
+		<input type = "button" class="btn btn default" ng-click="sairApp()" value="Logoff" style="margin-left:1160px"></input>
+
+
+	<!-- Tabela para listar clientes -->
+	<h3>Anuncios</h3>
+	<table cellpadding="2" cellspacing="2" border="1"
+		class="table table-striped">
+		<th></th>
+		<th>Id</th>
+		<th>nome</th>
+		<th>Cod cidade</th>
+		<th>motorizei?</th>
+
+		<tr ng-repeat="cliente in listClientes track by $index">
+			<td><input type = "checkbox" id = "idClientesCheck" ng-click="getSelectedIndexClientes(cliente.id)"></td>
+			<td>{{cliente.id}}</td>
+			<td>{{cliente.title.rendered}}</td>
+			<td>{{cliente.ad_country}}</td>
+			<td>{{cliente.acf.motorizei}}</td>
+		</tr>
+
+	</table>
+
+	<div class="m-portlet__head-caption">
+								<div class="m-portlet__head-title">
+									<h3 class="m-portlet__head-text">
+										ANUNCIADOS NO MOTORIZEI
+									</h3>
+								</div>
+							</div>
+	
+	<div class="m-portlet__head-tools">
+								<ul class="m-portlet__nav">
+									<li class="m-portlet__nav-item">
+
+										<label style="min-width: 100px;">Atualizar Status:</label>
+										<select ng-model="destinoPost" class="form-control m-input m-input--solid" ng-change="mudarAnunciante()">
+											<option>selecionar</option>
+											<option value="idOlx">Ativar</option>
+											<option value="idMotorizei">Desativar</option>
+											<option value="idWebMotors">Vendido</option>
+											<option value="idWebMotors">Excluir</option>
+										</select>
+										<br>
+
+										<input type="button" ng-model="btMotorizei" ng-style="myBtnMotorizei" value="Publicar Motorizei" style="display:none; margin-left:10px"
+										 class="btn btn-success" ng-click="publicarAnuncioMotorizei()">
+
+										<input type="button" ng-model="btOlx" value="Publicar OLX" ng-style="myBtnOlx" style="display:none; margin-left:10px	"
+										 class="btn btn-success" ng-click="">
+
+										<input type="button" ng-model="btWebMotors" style="display:none; margin-left:10px" ng-style="myBtnWebMotors"
+										 value="Publicar Web Motors" class="btn btn-success" ng-click="">
+
+
+									</li>
+
+								</ul>
+							</div>
+		<table class="table table-striped">
+								<th>Id</th>
+								<th>nome</th>
+								<th>Data de Publicação</th>
+								<th>Preço</th>
+								<th>Visualizações</th>
+								<th>Status</th>
+
+								<tr ng-repeat="anuncio in listMotorizei track by $index">
+									<td>{{anuncio.id}}</td>
+									<td>{{anuncio.title.rendered}}</td>
+									<td>{{anuncio.date}}</td>
+									<td>{{anuncio.acf.preco}}</td>
+									<td>{{anuncio.info.sb_post_views_count}}</td>
+									<td>{{anuncio.info._carspot_ad_status_}}</td>
+								</tr>
+
+							</table>
+	<!-- aqui é feito o meu controller do angular -->
+	<script>
+var myapp = angular.module('myapp', []);
+
+myapp.controller('pedidoController', function($scope, $http, $window){
+
+	function getSelectedIndex(id){
+		for(var i=0; i<$scope.listPedidos.length; i++)
+			if($scope.listPedidos[i].id == id)
+				return i;
+		
+		return -1;	
+		}
+	
+	
+	function getSelectedIndexItem(id){
+		for(var i=0; i<$scope.listProdutos.length; i++)
+			if($scope.listProdutos[i].id==id)
+				return i;
+		
+		return -1;	
+		}
+	
+	$scope.sairApp = function(){
+		if($window.confirm('Tem certeza?')){
+			$window.location.href = 'login.html';	
+		}
+		
+	}
+	
+	$scope.faleConosco = function(){
+			$window.location.href = 'incluir-lead.html';	
+	}
+	
+	<!-- listas para cliente-->
+	$scope.listMotorizei = [];
+	$scope.listClientes = [];
+	$scope.listClientesPost = [];
+	$scope.listPublicar = [];
+	$scope.listTodosMotorizei = [];
+		
+	$scope.buscarClientes = function(){
+		
+			    $http({
+			        method : "GET",
+			        url : "http://motorizei.com.br/hpveiculos/wp-json/wp/v2/ad_post"
+			        
+			    }).then(function mySucces(response) {
+			        $scope.listClientes = response.data;
+			    }, function myError(response) {
+			        $scope.myWelcome = response.statusText;
+			    });
+				
+	} 
+	
+	$scope.buscarAnunciosMotorizei = function () {
+
+		var data;
+
+		$http({
+			method: "GET",
+			url: "https://motorizei.com.br/desenvolvimento/wp-json/wp/v2/ad_post?id_loja=2"
+
+		}).then(function mySucces(response) {
+			$scope.listTodosMotorizei = response.data;
+			data = $scope.listTodosMotorizei;
+			console.log("lista de anuncios :", data);
+			for (var i = 0; i < data.length; i++) {
+				 
+					$scope.listMotorizei[i] = data[i];
+					console.log("anuncios motorizei: ", $scope.listMotorizei);
+					console.log("anuncios motorizei quantidade: ", $scope.listMotorizei.length);
+				 
+			}
+		}, function myError(response) {
+			$scope.myWelcome = response.statusText;
+		});
+	}	
+	
+	//para pegar os dados motorizei do checkbox
+	$scope.getSelectedIndexClientes = function(id){
+	
+		for(var i=0; i<=$scope.listClientes.length; i++)
+			if($scope.listClientes[i].id == id){
+				$scope.listClientesPost.push($scope.listClientes[i]);
+				return $scope.listClientesPost;
+			}
+		
+		return -1;	
+		}
+	
+	$scope.mudarAnunciante = function(){
+		destinoPosting = $scope.destinoPost;
+		
+		if(destinoPosting == "idMotorizei"){
+			$scope.myBtnMotorizei = {"display":"inline"},
+			$scope.myBtnOlx = {"display":"none"}
+			$scope.myBtnWebMotors = {"display":"none"}
+		} 
+		
+		else if (destinoPosting == "idOlx"){
+			$scope.myBtnOlx = {"display":"inline"},
+			$scope.myBtnMotorizei = {"display":"none"}
+			$scope.myBtnWebMotors = {"display":"none"}
+		}  
+		
+		else if(destinoPosting =="idWebMotors"){
+			$scope.myBtnWebMotors = {"display":"inline"}
+			$scope.myBtnOlx = {"display":"none"},
+			$scope.myBtnMotorizei = {"display":"none"}
+		}
+		
+	};
+	
+$scope.publicarAnuncioMotorizei = function(){
+	
+		let username = 'rodrigo';
+      	let password = 'qwer1234';
+      	var vlr=0;
+      	var headers = new Headers();
+      	$http.defaults.headers.common['Authorization'] = 'Basic ' +btoa(username + ':' + password);
+        $http.defaults.headers.common['Content-Type'] = 'application/json';
+      	
+      	var data = $scope.listClientesPost;
+      	var values = data;
+      	
+ 			angular.forEach(values, function(value, key){
+ 			listPublicar = JSON.stringify({
+ 		        "title": value.title.rendered,
+ 		        "ad_cats": value.ad_cats,
+ 		        "ad_condition": value.ad_condition,
+ 		        "ad_years": value.ad_years,
+ 		        "ad_body_types": value.ad_body_types,
+ 		        "ad_transmissions": value.ad_transmissions,
+ 		        "ad_engine_types": value.ad_engine_types,
+ 		        "ad_colors": value.ad_colors,
+ 		        "ad_features": value.info.ad_features,
+ 		        "ad_country": value.ad_country,
+ 		        "acf_fields": {
+ 		          "preco": value.acf.preco,
+ 		          "km": value.acf.km,
+ 		          "id_loja": value.id,
+ 		          "motorizei" : "Sim"
+ 		        }
+ 		      });
+ 			
+		 $http.post("https://motorizei.com.br/desenvolvimento/wp-json/wp/v2/ad_post/", listPublicar)
+         .success(function (data, status, headers, config) {
+        	 var active = data;
+        	 $window.location.reload();
+         })
+         .error(function (data, status, headers, config) {
+        	 alert('Erro ao publicar!');
+         })
+         .finally(function (){
+        	 if(status == 201){
+        		 $scope.isSuccess = true;	 
+        	 } else{
+        		 $scope.isSuccess = false;
+        	 }
+        	 $scope.atualizaFlagMotorizei(); 
+         	});
+ 		});
+ 				alert('Publicado com sucesso! ');
+ 			 
+	};
+	
+	
+	 $scope.atualizaFlagMotorizei = function(){
+		 
+		let username = 'rodrigo';
+	    let password = 'qwer1234';
+		var headers = new Headers();
+		$http.defaults.headers.common['Authorization'] = 'Basic ' +btoa(username + ':' + password);
+	    $http.defaults.headers.common['Content-Type'] = 'application/json';
+	    
+		var data = $scope.listClientesPost;
+      	var values = data;
+		var id;
+		var motorizei;
+ 			angular.forEach(values, function(value, key){
+ 			 listPublicar = JSON.stringify({
+ 		        "acf_fields": {
+ 		          "motorizei" : "Sim"
+ 		        } 
+ 			 
+	        });
+ 			   
+ 			   id = value.id;
+ 			
+ 			$http.put("http://motorizei.com.br/hpveiculos/wp-json/wp/v2/ad_post/"+ id, listPublicar)
+ 	         .success(function (data, status, headers, config) {
+ 	        	 console.log('atualizado com sucesso', data, status, headers, config)
+ 	         })
+ 	        .error(function (data, status, header, config) {
+ 	        	 console.log('erro ao atualizar', data, status, headers, config)
+ 	         });
+         });
+		
+	}; 
+		
+
+	function getSelectedIndexCliente(id){
+		for(var i=0; i<$scope.listClientes.length; i++)
+			if($scope.listClientes[i].id == id)
+				return i;
+		
+		return -1;	
+		}
+	
+	$scope.buscarClientes();
+	$scope.buscarAnunciosMotorizei();
+	});
+	
+
+
+</script>
+
+</body>
+</html>

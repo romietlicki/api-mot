@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html ng-app="myappLogin">
+<head>
+<meta charset="ISO-8859-1">
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<title>Recuperacao de senha Motorizei</title>
+</head>
+<body ng-controller="loginController">
+<div class="container">
+<br>
+  <img src="imagens/logo-vf.png" alt="">
+	<br>
+  <form>
+    <div class="form-group">
+      <label for="nome">Usuario:</label>
+      <input type="text" class="form-control" style="width:660px" ng-model="nome" id="nome" placeholder="Nome de usuario">
+    </div>
+    <div class="form-group">
+      <label for="pwd">Nova senha:</label>
+      <input type="password" class="form-control" style="width:660px" id="pwd" ng-model="senha" placeholder="Senha">
+    </div>
+    
+     <div class="form-group">
+      <label for="pwdConfirm">Confirme nova senha senha:</label>
+      <input type="password" class="form-control" style="width:660px" id="pwdConfirm" ng-model="senhaConfirm" placeholder="Senha">
+    </div>
+
+    <button type="submit" class="btn btn-default" ng-click="alterarSenha()">Mudar senha</button>
+  </form>
+</div>
+
+<script>
+var myapp = angular.module('myappLogin', []);
+myapp.controller('loginController', function($scope, $http, $window){
+
+$scope.alterarSenha = function(){
+		
+	var primeiraSenha = $scope.senha;
+	var confirmaSenha = $scope.senhaConfirm;
+	
+		console.log({'user': $scope.nome, 'senha':$scope.senha,'tipo':$scope.tipo});
+		if(confirmaSenha == primeiraSenha){
+			
+			 //$http.post("https://integrador-motorizei.herokuapp.com/integrador/autenticacao/autenticarUsuario",{'username': $scope.nome, 'senha':$scope.senha,'tipo':$scope.tipo})
+			 $http.post("http://localhost:8080/integrador/usuario/mudarSenha", {'username': $scope.nome, 'senha':$scope.senha})
+	         .success(function (data, status, headers, config) {
+	        	alert('Senha alterada com sucesso!!');
+	        	$window.location.href = 'login.html';
+	         })
+	         .error(function (data, status, header, config) {
+	        	 alert('Houve um erro ao trocar a senha!')
+	        	 $window.location.reload();
+	         });
+		} else {
+			alert('Senhas nao conferem!');
+		}
+	};
+
+});
+
+</script>
+
+</body>
+</html>
