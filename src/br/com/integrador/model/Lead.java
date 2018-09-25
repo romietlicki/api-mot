@@ -32,12 +32,12 @@ public class Lead {
 	private int idLead;
 	private String nome;
 	private String email;
-	private double valorOportunidade;
+	private Double valorOportunidade;
 	private String telefone;
 	private String mensagem;
 	private List<StatusLead> statusLead = new ArrayList<>(); 
 	private Usuario usuario;
-	private Tarefa tarefa;
+	//private Tarefa tarefa;
 	private Anotacao anotacao;
 	
 	public Lead(){
@@ -49,12 +49,12 @@ public class Lead {
 	public Lead(@JsonProperty("idLead") int idLead,
 			@JsonProperty("nome") String nome,
 			@JsonProperty("email") String email,
-			@JsonProperty("valorOportunidade") double valorOportunidade,
+			@JsonProperty("valorOportunidade") Double valorOportunidade,
 			@JsonProperty("telefone") String telefone,
 			@JsonProperty("mensagem") String mensagem,
 			@JsonProperty("statusLead") List<StatusLead> statusLead,
 			@JsonProperty("usuario") Usuario usuario,
-			@JsonProperty("tarefa") Tarefa tarefa,
+			//@JsonProperty("tarefa") Tarefa tarefa,
 			@JsonProperty("anotacao") Anotacao anotacao) {
 		super();
 		this.idLead = idLead;
@@ -65,7 +65,7 @@ public class Lead {
 		this.mensagem = mensagem;
 		this.statusLead = statusLead;
 		this.usuario = usuario;
-		this.tarefa = tarefa;
+		//this.tarefa = tarefa;
 		this.anotacao = anotacao;
 	}
 	
@@ -84,29 +84,29 @@ public class Lead {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	@Column(nullable = false, length = 100)
+	@Column(nullable = true, length = 100)
 	public String getEmail() {
 		return email;
 	}
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	@Column(nullable = false, length = 100)
-	public double getValorOportunidade() {
+	@Column(nullable = true, length = 100)
+	public Double getValorOportunidade() {
 		return valorOportunidade;
 	}
-	public void setValorOportunidade(double valorOportunidade) {
+	public void setValorOportunidade(Double valorOportunidade) {
 		this.valorOportunidade = valorOportunidade;
 	}
 
-	@Column(nullable = false, length = 50)
+	@Column(nullable = true, length = 50)
 	public String getTelefone() {
 		return telefone;
 	}
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
-	@Column(nullable = false, length = 1000)
+	@Column(nullable = true, length = 1000)
 	public String getMensagem() {
 		return mensagem;
 	}
@@ -127,7 +127,7 @@ public class Lead {
 
 	@JsonBackReference
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "usuario_id", nullable = false)
+	@JoinColumn(name = "usuario_id", nullable = true)
 	public Usuario getUsuario() {
 		return usuario;
 	}
@@ -137,8 +137,8 @@ public class Lead {
 		this.usuario = usuario;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "tarefa_id")
+	/*@OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "tarefa_id", nullable = true)
 	public Tarefa getTarefa() {
 		return tarefa;
 	}
@@ -146,10 +146,10 @@ public class Lead {
 	
 	public void setTarefa(Tarefa tarefa) {
 		this.tarefa = tarefa;
-	}
+	}*/
 
-	@OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "anotacao_id")
+	/*@OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "anotacao_id", nullable = true)
 	public Anotacao getAnotacao() {
 		return anotacao;
 	}
@@ -158,9 +158,7 @@ public class Lead {
 	public void setAnotacao(Anotacao anotacao) {
 		this.anotacao = anotacao;
 	}
+	*/
 	
-	
-	
-
 
 }

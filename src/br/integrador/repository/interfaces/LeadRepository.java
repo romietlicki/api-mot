@@ -8,6 +8,6 @@ import br.com.integrador.model.Lead;
  */
 public interface LeadRepository {
 	
-	public abstract Lead recebeLeadClienteService(Lead lead);
+	public abstract void recebeMensagemCliente(Lead lead);
 
 }

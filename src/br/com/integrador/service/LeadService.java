@@ -11,8 +11,8 @@ public class LeadService {
 
 	LeadRepositoryImpl leadRepositoryImpl = new LeadRepositoryImpl();
 	
-	public Lead recebeLeadClienteService(Lead lead){
-		return this.leadRepositoryImpl.recebeLeadClienteService(lead);
+	public void recebeLeadClienteService(Lead lead){
+		this.leadRepositoryImpl.recebeMensagemCliente(lead);
 	}
 	
 	
