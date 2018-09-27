@@ -55,7 +55,7 @@ public class Anotacao {
 		this.anotacao = anotacao;
 	}
 
-	@OneToOne(mappedBy = "anotacao", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+/*	@OneToOne(mappedBy = "anotacao", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
 	public Lead getLead() {
 		return lead;
 	}
@@ -63,7 +63,7 @@ public class Anotacao {
 	public void setLead(Lead lead) {
 		this.lead = lead;
 	}
-	
+	*/
 	
 	
 

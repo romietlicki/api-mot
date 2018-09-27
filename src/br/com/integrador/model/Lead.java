@@ -35,7 +35,7 @@ public class Lead {
 	private Double valorOportunidade;
 	private String telefone;
 	private String mensagem;
-	private List<StatusLead> statusLead = new ArrayList<>(); 
+	private StatusLead statusLead; 
 	private Usuario usuario;
 	//private Tarefa tarefa;
 	private Anotacao anotacao;
@@ -52,7 +52,7 @@ public class Lead {
 			@JsonProperty("valorOportunidade") Double valorOportunidade,
 			@JsonProperty("telefone") String telefone,
 			@JsonProperty("mensagem") String mensagem,
-			@JsonProperty("statusLead") List<StatusLead> statusLead,
+			@JsonProperty("statusLead") StatusLead statusLead,
 			@JsonProperty("usuario") Usuario usuario,
 			//@JsonProperty("tarefa") Tarefa tarefa,
 			@JsonProperty("anotacao") Anotacao anotacao) {
@@ -115,18 +115,19 @@ public class Lead {
 	}
 
 	@JsonManagedReference
-	@OneToMany(mappedBy = "lead", cascade = CascadeType.ALL, orphanRemoval = true)
-	public List<StatusLead> getStatusLead() {
+	@OneToOne(cascade = CascadeType.MERGE, orphanRemoval = true)
+	@JoinColumn(name = "status_lead_id", nullable = true)
+	public StatusLead getStatusLead() {
 		return statusLead;
 	}
 
 
-	public void setStatusLead(List<StatusLead> statusLead) {
+	public void setStatusLead(StatusLead statusLead) {
 		this.statusLead = statusLead;
 	}
 
 	@JsonBackReference
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
 	@JoinColumn(name = "usuario_id", nullable = true)
 	public Usuario getUsuario() {
 		return usuario;

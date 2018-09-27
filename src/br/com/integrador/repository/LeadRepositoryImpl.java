@@ -32,7 +32,8 @@ public class LeadRepositoryImpl  implements LeadRepository{
 			//anotacao.setLead(lead);
 			//lead.setAnotacao(anotacao);
 			//this.manager.merge(anotacao);
-			this.manager.merge(lead);
+			this.manager.persist(lead.getStatusLead());
+			this.manager.persist(lead);
 		} catch (Exception e) {
 			System.out.println("Erro..." + e.getMessage());
 		} finally {

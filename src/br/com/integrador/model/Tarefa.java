@@ -69,14 +69,14 @@ public class Tarefa {
 		this.mensagem = mensagem;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "tarefa", cascade = CascadeType.ALL)
+	/*@OneToOne(fetch = FetchType.LAZY, mappedBy = "tarefa", cascade = CascadeType.ALL)
 	public Lead getLead() {
 		return lead;
 	}
 
 	public void setLead(Lead lead) {
 		this.lead = lead;
-	}
+	}*/
 	
 	
 

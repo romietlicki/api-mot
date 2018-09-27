@@ -77,7 +77,7 @@ public class LeadWS {
 		
 
 		//lead.setAnotacao(leads.getAnotacao() == null ? anotacao : leads.getAnotacao());
-		lead.setStatusLead(leads.getStatusLead() == null ? listStatusLead : leads.getStatusLead());
+		lead.setStatusLead(leads.getStatusLead() == null ? statusLead : leads.getStatusLead());
 		//lead.setTarefa(leads.getTarefa() == null ? tarefa : leads.getTarefa());
 		lead.setValorOportunidade(leads.getValorOportunidade() == null ? 0 : leads.getValorOportunidade());
 		lead.setUsuario(leads.getUsuario()== null ? usuario : leads.getUsuario());
