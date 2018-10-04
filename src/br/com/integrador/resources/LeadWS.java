@@ -1,18 +1,18 @@
 package br.com.integrador.resources;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import br.com.integrador.model.Anotacao;
 import br.com.integrador.model.Lead;
 import br.com.integrador.model.StatusLead;
-import br.com.integrador.model.Tarefa;
 import br.com.integrador.model.TipoUsuario;
 import br.com.integrador.model.Usuario;
 import br.com.integrador.service.LeadService;
@@ -85,6 +85,16 @@ public class LeadWS {
 		System.out.println("ver se chegou aqui: "+lead);
 		leadService.recebeLeadClienteService(lead);
 		 
+	}
+	
+	
+	
+	@PUT
+	@Path("/updateStatusLead")
+	@Produces(MediaType.APPLICATION_JSON)
+	public void updateStatusLead(StatusLead statusLead){
+		
+		leadService.updateStatusLeadService(statusLead);
 	}
 
 }

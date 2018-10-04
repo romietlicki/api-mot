@@ -1,6 +1,7 @@
 package br.integrador.repository.interfaces;
 
 import br.com.integrador.model.Lead;
+import br.com.integrador.model.StatusLead;
 
 /**
  * @author Rodrigo
@@ -9,5 +10,6 @@ import br.com.integrador.model.Lead;
 public interface LeadRepository {
 	
 	public abstract void recebeMensagemCliente(Lead lead);
+	public abstract void updateStatusLead(StatusLead statusLead);
 
 }
