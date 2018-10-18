@@ -31,9 +31,14 @@ public class Lead {
 	private Double valorOportunidade;
 	private String telefone;
 	private String mensagem;
-	private StatusLead statusLead; 
+	private StatusLead statusLead;
+	private Empresa loja;
+	private Veiculo veiculo;
+	private String cpf;
+	private String tipoForm;
+	private String endereco;
 	private Usuario usuario;
-	//private Tarefa tarefa;
+	private Tarefa tarefa;
 	private Anotacao anotacao;
 	
 	public Lead(){
@@ -49,8 +54,13 @@ public class Lead {
 			@JsonProperty("telefone") String telefone,
 			@JsonProperty("mensagem") String mensagem,
 			@JsonProperty("statusLead") StatusLead statusLead,
+			@JsonProperty("loja") Empresa loja,
+			@JsonProperty("veiculo") Veiculo veiculo,
+			@JsonProperty("cpf") String cpf,
+			@JsonProperty("tipoForm") String tipoForm,
+			@JsonProperty("endereco") String endereco,
 			@JsonProperty("usuario") Usuario usuario,
-			//@JsonProperty("tarefa") Tarefa tarefa,
+			@JsonProperty("tarefa") Tarefa tarefa,
 			@JsonProperty("anotacao") Anotacao anotacao) {
 		super();
 		this.idLead = idLead;
@@ -60,8 +70,12 @@ public class Lead {
 		this.telefone = telefone;
 		this.mensagem = mensagem;
 		this.statusLead = statusLead;
+		this.loja = loja;
+		this.veiculo = veiculo;
+		this.cpf = cpf;
+		this.tipoForm = tipoForm;
 		this.usuario = usuario;
-		//this.tarefa = tarefa;
+		this.tarefa = tarefa;
 		this.anotacao = anotacao;
 	}
 	
@@ -73,7 +87,7 @@ public class Lead {
 	public void setIdLead(int idLead) {
 		this.idLead = idLead;
 	}
-	@Column(nullable = false, length = 150)
+	@Column(nullable = true, length = 150)
 	public String getNome() {
 		return nome;
 	}
@@ -121,6 +135,54 @@ public class Lead {
 	public void setStatusLead(StatusLead statusLead) {
 		this.statusLead = statusLead;
 	}
+	
+	@JsonBackReference
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+	@JoinColumn(name = "loja_id", nullable = true)
+	public Empresa getLoja() {
+		return loja;
+	}
+	public void setLoja(Empresa loja) {
+		this.loja = loja;
+	}
+	
+	@JsonBackReference
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+	@JoinColumn(name = "veiculo_id", nullable = true)
+	public Veiculo getVeiculo() {
+		return veiculo;
+	}
+
+	public void setVeiculo(Veiculo veiculo) {
+		this.veiculo = veiculo;
+	}
+	
+	@Column(nullable = true, length = 50)
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+	
+	@Column(nullable = true, length = 100)
+	public String getTipoForm() {
+		return tipoForm;
+	}
+
+	public void setTipoForm(String tipoForm) {
+		this.tipoForm = tipoForm;
+	}
+	
+	@Column(nullable = true, length = 300)
+	public String getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(String endereco) {
+		this.endereco = endereco;
+	}
 
 	@JsonBackReference
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
@@ -134,7 +196,7 @@ public class Lead {
 		this.usuario = usuario;
 	}
 
-	/*@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tarefa_id", nullable = true)
 	public Tarefa getTarefa() {
 		return tarefa;
@@ -143,9 +205,9 @@ public class Lead {
 	
 	public void setTarefa(Tarefa tarefa) {
 		this.tarefa = tarefa;
-	}*/
+	}
 
-	/*@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "anotacao_id", nullable = true)
 	public Anotacao getAnotacao() {
 		return anotacao;
@@ -155,7 +217,6 @@ public class Lead {
 	public void setAnotacao(Anotacao anotacao) {
 		this.anotacao = anotacao;
 	}
-	*/
 	
 
 }

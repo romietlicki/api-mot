@@ -60,8 +60,8 @@ public class StatusLead {
 	}
 
 	@JsonBackReference
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name = "lead_id", nullable = false)
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+	@JoinColumn(name = "lead_id", nullable = true)
 	public Lead getLead() {
 		return lead;
 	}

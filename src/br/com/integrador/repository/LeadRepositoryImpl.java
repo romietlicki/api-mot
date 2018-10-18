@@ -1,8 +1,13 @@
 package br.com.integrador.repository;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+
+import org.hibernate.HibernateException;
 
 import br.com.integrador.model.Lead;
 import br.com.integrador.model.StatusLead;
@@ -26,7 +31,7 @@ public class LeadRepositoryImpl  implements LeadRepository{
 			//anotacao.setLead(lead);
 			//lead.setAnotacao(anotacao);
 			//this.manager.merge(anotacao);
-			this.manager.persist(lead.getStatusLead());
+			//this.manager.persist(lead.getStatusLead());
 			this.manager.persist(lead);
 		} catch (Exception e) {
 			System.out.println("Erro..." + e.getMessage());
@@ -53,6 +58,40 @@ public class LeadRepositoryImpl  implements LeadRepository{
 			System.out.println("Erro..." + e.getMessage());
 		} finally {
 			manager.getTransaction().commit();
+			manager.close();
+		}
+	}
+	
+	
+	public void adicionarNovoLead(Lead lead) {
+		try {
+			EntityManagerProducer emp = new EntityManagerProducer();
+			manager = emp.createEntityManager();
+			manager.getTransaction().begin();
+			
+			this.manager.persist(lead.getStatusLead());
+			this.manager.persist(lead);
+			
+		} catch (Exception e) {
+			System.out.println("Erro..." + e.getMessage());
+		} finally {
+			manager.getTransaction().commit();
+			manager.close();
+		}
+	}
+	
+	public List<Lead> buscarLeads() {
+		List<Lead> listLead = new ArrayList<>();
+			EntityManagerProducer emp = new EntityManagerProducer();
+			manager = emp.createEntityManager();
+			manager.getTransaction().begin();
+			Query query = manager.createQuery("from Lead");
+			try {
+				listLead = (ArrayList<Lead>) query.getResultList();
+			return listLead;
+		} catch (HibernateException e) {
+			return null;
+		} finally {
 			manager.close();
 		}
 	}

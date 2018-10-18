@@ -1,5 +1,7 @@
 package br.integrador.repository.interfaces;
 
+import java.util.List;
+
 import br.com.integrador.model.Lead;
 import br.com.integrador.model.StatusLead;
 
@@ -11,5 +13,7 @@ public interface LeadRepository {
 	
 	public abstract void recebeMensagemCliente(Lead lead);
 	public abstract void updateStatusLead(StatusLead statusLead);
+	public abstract void adicionarNovoLead(Lead lead);
+	public abstract List<Lead> buscarLeads();
 
 }
