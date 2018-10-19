@@ -1,13 +1,19 @@
 package br.com.integrador.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.codehaus.jackson.annotate.JsonCreator;
+import org.codehaus.jackson.annotate.JsonManagedReference;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 /**
@@ -24,6 +30,8 @@ public class Empresa {
 	private String endereco;
 	private String email;
 	private String telefone;
+	private List<Lead> lead;
+	private List<Veiculo> veiculo;
 	
 	public Empresa(){
 		super();
@@ -36,7 +44,9 @@ public class Empresa {
 			@JsonProperty("logoPath") String logoPath,
 			@JsonProperty("endereco") String endereco,
 			@JsonProperty("email") String email,
-			@JsonProperty("telefone") String telefone) {
+			@JsonProperty("telefone") String telefone,
+			@JsonProperty("lead") List<Lead> lead,
+			@JsonProperty("veiculo") List<Veiculo> veiculo) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -44,6 +54,8 @@ public class Empresa {
 		this.endereco = endereco;
 		this.email = email;
 		this.telefone = telefone;
+		this.lead = lead;
+		this.veiculo = veiculo;
 	}
 	
 	@Id
@@ -55,40 +67,60 @@ public class Empresa {
 		this.id = id;
 	}
 	
-	@Column(nullable = false, length = 150)
+	@Column(nullable = true, length = 150)
 	public String getNome() {
 		return nome;
 	}
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	@Column(nullable = false, length = 1000)
+	@Column(nullable = true, length = 1000)
 	public String getLogoPath() {
 		return logoPath;
 	}
 	public void setLogoPath(String logoPath) {
 		this.logoPath = logoPath;
 	}
-	@Column(nullable = false, length = 150)
+	@Column(nullable = true, length = 150)
 	public String getEndereco() {
 		return endereco;
 	}
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
 	}
-	@Column(nullable = false, length = 150)
+	@Column(nullable = true, length = 150)
 	public String getEmail() {
 		return email;
 	}
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	@Column(nullable = false, length = 50)
+	@Column(nullable = true, length = 50)
 	public String getTelefone() {
 		return telefone;
 	}
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
+	}
+
+	@JsonManagedReference
+	@OneToMany(mappedBy = "loja", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	public List<Lead> getLead() {
+		return lead;
+	}
+
+	public void setLead(List<Lead> lead) {
+		this.lead = lead;
+	}
+
+	@JsonManagedReference
+	@OneToMany(mappedBy = "loja", cascade = CascadeType.ALL)
+	public List<Veiculo> getVeiculo() {
+		return veiculo;
+	}
+
+	public void setVeiculo(List<Veiculo> veiculo) {
+		this.veiculo = veiculo;
 	}
 	
 }

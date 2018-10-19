@@ -90,6 +90,7 @@ $scope.login = function(){
 		
 		 //$http.post("https://integrador-motorizei.herokuapp.com/integrador/autenticacao/autenticarUsuario",{'username': $scope.nome, 'senha':$scope.senha,'tipo':$scope.tipo})
 		 $http.post("http://localhost:8080/integrador/autenticacao/autenticarUsuario",{'username': $scope.nome, 'senha':$scope.senha,'tipo':$scope.tipo})
+		 //$http.post("http://integrador.uh-app.com.br/api-mot/autenticacao/autenticarUsuario",{'username': $scope.nome, 'senha':$scope.senha,'tipo':$scope.tipo})
          .success(function (data, status, headers, config) {
         	alert('Logado com sucesso!!');
         	$window.location.href = 'index.html';

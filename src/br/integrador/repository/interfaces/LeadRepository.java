@@ -15,5 +15,8 @@ public interface LeadRepository {
 	public abstract void updateStatusLead(StatusLead statusLead);
 	public abstract void adicionarNovoLead(Lead lead);
 	public abstract List<Lead> buscarLeads();
+	public List<Lead> buscarLeadsPorId(int id);
+	public abstract void atualizaLead(Lead lead);
+	public abstract void deletarLead(Lead lead);
 
 }

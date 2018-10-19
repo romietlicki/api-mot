@@ -87,7 +87,7 @@ public class Usuario {
 		this.tipo = tipo;
 	}
 
-	@Column(nullable = false, length = 150)
+	@Column(nullable = true, length = 150)
 	public String getEmail() {
 		return email;
 	}
@@ -97,7 +97,7 @@ public class Usuario {
 	}
 
 	@JsonManagedReference
-	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	public List<Lead> getLeads() {
 		return leads;
 	}

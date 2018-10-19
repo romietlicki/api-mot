@@ -198,9 +198,9 @@ myapp.controller('pedidoController', function($scope, $http, $window){
 		for(var i=0; i<=$scope.listClientes.length; i++)
 			if($scope.listClientes[i].id == id){
 				$scope.listClientesPost.push($scope.listClientes[i]);
+				console.log($scope.listClientesPost);
 				return $scope.listClientesPost;
 			}
-		
 		return -1;	
 		}
 	

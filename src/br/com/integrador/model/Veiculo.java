@@ -29,7 +29,7 @@ public class Veiculo {
 	
 	private int id;
 	private String  titulo;
-	private String descrição;
+	private String descricao;
 	private Double preco;
 	private Double km;
 	private String tipo; 
@@ -46,13 +46,13 @@ public class Veiculo {
 	private String combustivel;
 	
 	public Veiculo(){
-		
+		super();
 	}
 	
 	@JsonCreator
 	public Veiculo(@JsonProperty("id") int id,
 			@JsonProperty("titulo") String titulo,
-			@JsonProperty("descrição") String descrição,
+			@JsonProperty("descricao") String descricao,
 			@JsonProperty("preco") Double preco,
 			@JsonProperty("km") Double km,
 			@JsonProperty("tipo") String tipo,
@@ -69,7 +69,7 @@ public class Veiculo {
 		super();
 		this.id = id;
 		this.titulo = titulo;
-		this.descrição = descrição;
+		this.descricao = descricao;
 		this.preco = preco;
 		this.km = km;
 		this.tipo = tipo;
@@ -101,11 +101,11 @@ public class Veiculo {
 		this.titulo = titulo;
 	}
 	@Column(nullable = true, length = 1000)
-	public String getDescrição() {
-		return descrição;
+	public String getDescricao() {
+		return descricao;
 	}
-	public void setDescrição(String descrição) {
-		this.descrição = descrição;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 	@Column(nullable = true, length = 50)
 	public Double getPreco() {

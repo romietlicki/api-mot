@@ -68,9 +68,13 @@ public class LeadRepositoryImpl  implements LeadRepository{
 			EntityManagerProducer emp = new EntityManagerProducer();
 			manager = emp.createEntityManager();
 			manager.getTransaction().begin();
-			
-			this.manager.persist(lead.getStatusLead());
+			StatusLead status = new StatusLead();
+			status.setLead(lead);
+			status.setStatus("LEAD");
+			lead.setStatusLead(status);
+			this.manager.persist(status);
 			this.manager.persist(lead);
+			
 			
 		} catch (Exception e) {
 			System.out.println("Erro..." + e.getMessage());
@@ -96,5 +100,68 @@ public class LeadRepositoryImpl  implements LeadRepository{
 		}
 	}
 	
+	public List<Lead> buscarLeadsPorId(int id) {
+		try {
+			EntityManagerProducer emp = new EntityManagerProducer();
+			manager = emp.createEntityManager();
+			this.manager.getTransaction().begin();
+			Query query = this.manager
+					.createQuery("from Lead l where l.idLead =:id");
+			query.setParameter("id", id);
+			List<Lead> leads = query.getResultList();
+			this.manager.close();
+			return leads;
+
+		} catch (Exception e) {
+			System.out.println("Erro buscar... " + e);
+			return null;
+		}
+	}
+	
+	public void atualizaLead(Lead lead) {
+		try {
+			EntityManagerProducer emp = new EntityManagerProducer();
+			
+			manager = emp.createEntityManager();
+			manager.getTransaction().begin();
+			
+			Query query = manager.createQuery("update Lead set nome = :nomeLead, email = :emailLead, valorOportunidade = :valorOportunidade, telefone = :telefoneLead, " +
+    				"mensagem = :mensagemLead, cpf = :cpfLead, tipoForm = :tipoForm, endereco = :enderecoLead where idLead = :idLead");
+			
+			query.setParameter("nomeLead", lead.getNome());
+			query.setParameter("emailLead", lead.getEmail());
+			query.setParameter("valorOportunidade", lead.getValorOportunidade());
+			query.setParameter("telefoneLead", lead.getTelefone());
+			query.setParameter("mensagemLead", lead.getMensagem());
+			query.setParameter("cpfLead", lead.getCpf());
+			query.setParameter("tipoForm", lead.getTipoForm());
+			query.setParameter("enderecoLead", lead.getEndereco());
+			query.setParameter("idLead", lead.getIdLead());
+			int result = query.executeUpdate();
+			
+		} catch (Exception e) {
+			System.out.println("Erro..." + e.getMessage());
+		} finally {
+			manager.getTransaction().commit();
+			manager.close();
+		}
+	}
+
+	public void deletarLead(Lead lead) {
+		try{
+		EntityManagerProducer emp = new EntityManagerProducer();
+		
+		manager = emp.createEntityManager();
+		manager.getTransaction().begin();
+		
+		this.manager.remove(lead);
+		} catch(Exception e){
+			System.out.println("erro ao deletar lead: "+e.getMessage());
+		} finally{
+			this.manager.getTransaction().commit();
+			manager.close();
+		}
+		
+	}
 
 }
