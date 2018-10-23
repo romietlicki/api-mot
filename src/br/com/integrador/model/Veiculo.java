@@ -183,7 +183,7 @@ public class Veiculo {
 		this.loja = loja;
 	}
 	@JsonManagedReference
-	@OneToMany(mappedBy = "veiculo", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+	@OneToMany(mappedBy = "veiculo", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	public List<Lead> getLead() {
 		return lead;
 	}

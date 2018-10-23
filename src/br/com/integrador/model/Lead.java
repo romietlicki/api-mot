@@ -45,7 +45,6 @@ public class Lead {
 		super();
 	}
 	
-	
 	@JsonCreator
 	public Lead(@JsonProperty("idLead") int idLead,
 			@JsonProperty("nome") String nome,
@@ -137,7 +136,7 @@ public class Lead {
 	}
 	
 	@JsonBackReference
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
 	@JoinColumn(name = "loja_id", nullable = true)
 	public Empresa getLoja() {
 		return loja;
@@ -147,7 +146,7 @@ public class Lead {
 	}
 	
 	@JsonBackReference
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "veiculo_id", nullable = true)
 	public Veiculo getVeiculo() {
 		return veiculo;

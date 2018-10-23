@@ -105,6 +105,7 @@ public class LeadWS {
 	@Path("/adicionaNovoLead")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void adicionarNovoLead(Lead lead){
+		lead.setValorOportunidade(lead.getValorOportunidade().equals(null) ? 0 : lead.getValorOportunidade());
 		leadService.adicionarNovoLead(lead);
 	}
 	

@@ -106,10 +106,11 @@ public class LeadRepositoryImpl  implements LeadRepository{
 			manager = emp.createEntityManager();
 			this.manager.getTransaction().begin();
 			Query query = this.manager
-					.createQuery("from Lead l where l.idLead =:id");
+					.createQuery("from Lead where idLead =:id");
 			query.setParameter("id", id);
 			List<Lead> leads = query.getResultList();
 			this.manager.close();
+			System.out.println("Leads.. "+ leads);
 			return leads;
 
 		} catch (Exception e) {
