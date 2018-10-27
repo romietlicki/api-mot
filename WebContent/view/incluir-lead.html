@@ -92,6 +92,8 @@
     <button type="submit" class="btn btn-default" ng-click="adicionarLead()">criar</button>
      <button type="submit" class="btn btn-default" ng-click="editarLead()">editar</button>
      <button type="submit" class="btn btn-default" ng-click="adicionarVeiculo()">add veiculo</button>
+     <button type="submit" class="btn btn-default" ng-click="buscarPorStatusLead()">buscar por status lead</button>
+     <button type="submit" class="btn btn-default" ng-click="adicionarAnotacao()">Adicionar Anotacao</button>
   </form>
   
   
@@ -142,13 +144,13 @@ $scope.enviarMensagem = function(){
 		$scope.idUser = 1;
 		$scope.leadId = 1;
 		$scope.nome = $scope.nomeLead;
-		$scope.email = "tretri@treta.com";
-		$scope.telefone = "4192293528";
-		$scope.mensagem = "mais uma mensagem de teste";
+		$scope.email = "rodrigo@mail.com";
+		$scope.telefone = "4192293323";
+		$scope.mensagem = "WTF TESTING";
 		$scope.valorOportunidade = $scope.vlrNeg;
 		$scope.userid = 1;
 		
-		$scope.cpf = "439.399.394.86";
+		$scope.cpf = "032.656.814.86";
 		
 		$scope.idLoja = "1";
 		$scope.nomeLoja = "HP Veiculos";
@@ -311,8 +313,8 @@ $scope.enviarMensagem = function(){
 				console.log(lead);
 					
 					 //$http.post("https://integrador-motorizei.herokuapp.com/integrador/autenticacao/autenticarUsuario",{'username': $scope.nome, 'senha':$scope.senha,'tipo':$scope.tipo})
-					 //$http.put("http://localhost:8080/integrador/lead/atualizarLead", lead1)
-					 $http.put("http://integrador.uh-app.com.br/api-mot/lead/atualizarLead", lead1)
+					 $http.put("http://localhost:8080/integrador/lead/atualizarLead", lead1)
+					 //$http.put("http://integrador.uh-app.com.br/api-mot/lead/atualizarLead", lead1)
 			         .success(function (data, status, headers, config) {
 			        	alert('lead alterado com sucesso!!');
 			        	$window.location.href = 'index.html';
@@ -329,7 +331,7 @@ $scope.enviarMensagem = function(){
 			$scope.adicionarVeiculo = function(){
 
 				$scope.id = 1;
-				$scope.leadId = 3;
+				$scope.leadId = 1;
 				$scope.nome = $scope.nomeLead;
 				$scope.email = "tretri@treta.com";
 				$scope.telefone = "4192293528";
@@ -338,25 +340,26 @@ $scope.enviarMensagem = function(){
 				$scope.userid = 1;
 				
 				$scope.idLoja = "1";
-				$scope.nomeLoja = "HP Veiculos";
+				$scope.nomeLoja = "HONDA REGISTRO";
 				$scope.logoPath = "C:/users/imagens";
 				$scope.enderecoLoja = "Registro-SP";
-				$scope.emailLoja = "hpveiculos@email.com";
-				$scope.telefoneLoja = "1394548392";
+				$scope.emailLoja = "lojahonda@email.com";
+				$scope.telefoneLoja = "1394544392";
 				
 				$scope.idVeiculo = 2;
-				$scope.titulo = "GOL POWER 1.0";
-				$scope.descricao = "Usado, bem cuidado, 4 portas";
-				$scope.preco = 23.500;
-				$scope.km = 32.000;
-				$scope.tipo = "HATCH";
-				$scope.ano = "2011";
-				$scope.cor = "VERMELHO";
-				$scope.modelo = "POWER"
-				$scope.marca = "Volkswagen";
+				$scope.titulo = "LANDHOVER";
+				$scope.descricao = "Unico dono, carro premium";
+				$scope.preco = 93.600;
+				$scope.km = 42.000;
+				$scope.tipo = "SUV";
+				$scope.ano = "2015";
+				$scope.cor = "PRATA";
+				$scope.modelo = "LANDHOVER 1390"
+				$scope.marca = "Land Hover";
 				$scope.caracteristicas = "4 portas, direcao hidraulica, vidros eletricos";
-				$scope.cambio = "MANUAL";
+				$scope.cambio = "AUTOMATICO";
 				$scope.combustivel = "Alcool e gasolina";
+				$scope.path = "C:/imagens/carros";
 				
 				$scope.status = $scope.selectStatus;
 				
@@ -418,15 +421,8 @@ $scope.enviarMensagem = function(){
 						'cor': $scope.cor,
 						'modelo': $scope.modelo,
 						'marca': $scope.marca,
+						'fotoPath': $scope.path,
 						'caracteristicas': $scope.caracteristicas,
-						'loja':{
-							'id': $scope.idLoja,
-							'nome': $scope.nomeLoja,
-							'logoPath': $scope.logoPath,
-							'endereco': $scope.enderecoLoja,
-							'email': $scope.emailLoja,
-							'telefone': $scope.telefoneLoja
-						},
 						'cambio': $scope.cambio,
 						'combustivel': $scope.combustivel
 					
@@ -435,7 +431,7 @@ $scope.enviarMensagem = function(){
 					console.log(veiculo);
 						
 						 //$http.post("https://integrador-motorizei.herokuapp.com/integrador/autenticacao/autenticarUsuario",{'username': $scope.nome, 'senha':$scope.senha,'tipo':$scope.tipo})
-						// $http.post("http://localhost:8080/integrador/veiculo/cadastrarVeiculo", veiculo)
+						 //$http.post("http://localhost:8080/integrador/veiculo/cadastrarVeiculo", veiculo)
 						 $http.post("http://integrador.uh-app.com.br/api-mot/veiculo/cadastrarVeiculo", veiculo)
 				         .success(function (data, status, headers, config) {
 				        	alert('veiculo adicionado com sucesso com sucesso!!');
@@ -485,6 +481,108 @@ $scope.alterarStatusLead = function(){
 	        	 //$window.location.reload();
 	         });
 	};
+	
+	
+	$scope.buscarPorStatusLeadrsrs = function(){
+		
+	$scope.status = "LEAD";		
+	
+	console.log($scope.status);
+		
+			 //$http.post("https://integrador-motorizei.herokuapp.com/integrador/autenticacao/autenticarUsuario",{'username': $scope.nome, 'senha':$scope.senha,'tipo':$scope.tipo})
+			 $http.get("http://localhost:8080/integrador/lead/buscarLeadPorStatus", $scope.status)
+			 //$http.put("http://integrador.uh-app.com.br/api-mot/lead/buscarLeadPorStatus", status)
+	         .success(function (data, status, headers, config) {
+	        	alert(data);
+	        	$window.location.href = 'index.html';
+	         })
+	         .error(function (data, status, header, config) {
+	        	 alert('Houve um erro ao atualizar o lead!')
+	        	 //$window.location.reload();
+	         });
+	};
+	
+	
+	$scope.buscarPorStatusLead = function(){
+		
+		$scope.status = "LEAD";		
+		
+		console.log($scope.status);
+		
+	    $http({
+	        method : "GET",
+	        url : "http://localhost:8080/integrador/lead/buscarLeadPorStatus/"+$scope.status
+	    }).then(function mySucces(response) {
+	        $scope.listClientes = response.data;
+	        alert(response.data);
+	    }, function myError(response) {
+	        $scope.myWelcome = response.statusText;
+	    });
+		
+}; 
+
+
+$scope.adicionarAnotacao = function(){
+
+	$scope.idUser = 1;
+	$scope.leadId = 2;
+	$scope.nome = $scope.nomeLead;
+	$scope.email = "rodrigo@mail.com";
+	$scope.telefone = "4192293323";
+	$scope.mensagem = "WTF TESTING";
+	$scope.valorOportunidade = $scope.vlrNeg;
+	$scope.userid = 1;
+	
+	$scope.anotacao = "Jogar clash royale";
+	
+	$scope.cpf = "032.656.814.86";
+	
+	$scope.idLoja = "1";
+	$scope.nomeLoja = "HP Veiculos";
+	$scope.enderecoLoja = "Registro-SP";
+	$scope.emailLoja = "hpveiculos@email.com";
+	$scope.telefoneLoja = "1394548392";
+	
+	$scope.idVeiculo = 1;
+	$scope.titulo = "CORSA HATCH 4 PORTAS";
+	$scope.descricao = "Carro semi-novo, unico dono, quatro portas";
+	$scope.preco = 23.000;
+	$scope.km = 90.000;
+	$scope.tipo = "HATCH";
+	$scope.ano = "2012";
+	$scope.cor = "PRETO";
+	$scope.modelo = "HATCH 1.6 FLEX";
+	$scope.marca = "CHEVROLET";
+	$scope.caracteristicas = "4 portas, direcao hidraulica, vidros eletricos";
+	$scope.cambio = "MANUAL";
+	$scope.combustivel = "Alcool e gasolina";
+	
+	$scope.status = $scope.selectStatus;
+	
+	var lead = JSON.stringify({
+		'anotacao':$scope.anotacao,
+		'lead':{
+			'idLead':$scope.leadId
+		}
+		
+	})
+	
+		console.log(lead);
+			
+			 //$http.post("https://integrador-motorizei.herokuapp.com/integrador/autenticacao/autenticarUsuario",{'username': $scope.nome, 'senha':$scope.senha,'tipo':$scope.tipo})
+			 //$http.post("http://localhost:8080/integrador/anotacao/inserirAnotacaoLead", lead)
+			 //$http.post("http://integrador.uh-app.com.br/api-mot/anotacao/inserirAnotacaoLead", lead)
+	         .success(function (data, status, headers, config) {
+	        	alert('anotacao inserida com sucesso!!');
+	        	$window.location.href = 'index.html';
+	         })
+	         .error(function (data, status, header, config) {
+	        	 alert('Houve um erro ao adicionar anotacao!')
+	        	 //$window.location.reload();
+	         });
+	};
+	
+	
 
 });
 
