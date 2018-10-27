@@ -124,6 +124,14 @@ public class LeadWS {
 		return leadService.buscarLeadsPorId(id);
 	}
 	
+	@GET
+	@Path("/buscarLeadPorStatus/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public List<Lead> buscarLeadsPorStatus(@PathParam("id") String status){
+		return leadService.buscarLeadsPorStatus(status);
+	}
+	
 	@PUT
 	@Path("/atualizarLead")
 	@Produces(MediaType.APPLICATION_JSON)

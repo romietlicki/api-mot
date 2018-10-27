@@ -1,5 +1,7 @@
 package br.com.integrador.model;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,11 +11,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.codehaus.jackson.annotate.JsonBackReference;
 import org.codehaus.jackson.annotate.JsonCreator;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonManagedReference;
 import org.codehaus.jackson.annotate.JsonProperty;
 
@@ -39,7 +43,7 @@ public class Lead {
 	private String endereco;
 	private Usuario usuario;
 	private Tarefa tarefa;
-	private Anotacao anotacao;
+	private List<Anotacao> anotacao;
 	
 	public Lead(){
 		super();
@@ -60,7 +64,7 @@ public class Lead {
 			@JsonProperty("endereco") String endereco,
 			@JsonProperty("usuario") Usuario usuario,
 			@JsonProperty("tarefa") Tarefa tarefa,
-			@JsonProperty("anotacao") Anotacao anotacao) {
+			@JsonProperty("anotacao") List<Anotacao> anotacao) {
 		super();
 		this.idLead = idLead;
 		this.nome = nome;
@@ -206,14 +210,13 @@ public class Lead {
 		this.tarefa = tarefa;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "anotacao_id", nullable = true)
-	public Anotacao getAnotacao() {
+	@JsonManagedReference
+	@OneToMany(mappedBy = "lead", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	public List<Anotacao> getAnotacao() {
 		return anotacao;
 	}
 
-
-	public void setAnotacao(Anotacao anotacao) {
+	public void setAnotacao(List<Anotacao> anotacao) {
 		this.anotacao = anotacao;
 	}
 	

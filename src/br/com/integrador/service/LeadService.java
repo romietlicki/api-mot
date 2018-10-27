@@ -34,6 +34,10 @@ public class LeadService {
 		return leadRepositoryImpl.buscarLeadsPorId(id);
 	}
 	
+	public List<Lead> buscarLeadsPorStatus(String status){
+		return leadRepositoryImpl.buscarLeadsPorStatus(status);
+	}
+	
 	public void atualizaLead(Lead lead) {
 		this.leadRepositoryImpl.atualizaLead(lead);
 	}

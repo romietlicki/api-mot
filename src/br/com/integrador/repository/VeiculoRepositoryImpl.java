@@ -64,8 +64,7 @@ public class VeiculoRepositoryImpl implements VeiculoRepository{
 			List<Veiculo> listVeiculo = new ArrayList<Veiculo>();
 			EntityManagerProducer emp = new EntityManagerProducer();
 			manager = emp.createEntityManager();
-			manager = emp.createEntityManager();
-			Query query = manager.createQuery("from Veiculo");
+			Query query = manager.createQuery("select v from Veiculo v");
 			listVeiculo = query.getResultList();
 			return listVeiculo; 
 		}catch(Exception e){

@@ -7,9 +7,11 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
 import org.codehaus.jackson.annotate.JsonCreator;
 import org.codehaus.jackson.annotate.JsonProperty;
 
@@ -54,8 +56,10 @@ public class Anotacao {
 	public void setAnotacao(String anotacao) {
 		this.anotacao = anotacao;
 	}
-
-	@OneToOne(mappedBy = "anotacao", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+	
+	@JsonBackReference
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "lead_id", nullable = true)
 	public Lead getLead() {
 		return lead;
 	}

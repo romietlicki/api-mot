@@ -109,15 +109,36 @@ public class LeadRepositoryImpl  implements LeadRepository{
 					.createQuery("from Lead where idLead =:id");
 			query.setParameter("id", id);
 			List<Lead> leads = query.getResultList();
-			this.manager.close();
 			System.out.println("Leads.. "+ leads);
 			return leads;
 
 		} catch (Exception e) {
 			System.out.println("Erro buscar... " + e);
 			return null;
+		} finally{
+			this.manager.close();
 		}
 	}
+	
+	public List<Lead> buscarLeadsPorStatus(String status) {
+		try {
+			EntityManagerProducer emp = new EntityManagerProducer();
+			manager = emp.createEntityManager();
+			this.manager.getTransaction().begin();
+			Query query = this.manager
+					.createQuery("select l from Lead l inner join l.statusLead sl where sl.status =:status");
+			query.setParameter("status", status);
+			List<Lead> leads = query.getResultList();
+			System.out.println("Leads.. "+ leads);
+			return leads;
+		} catch (Exception e) {
+			System.out.println("Erro buscar... " + e);
+			return null;
+		} finally{
+			this.manager.close();
+		}
+	}
+	
 	
 	public void atualizaLead(Lead lead) {
 		try {
