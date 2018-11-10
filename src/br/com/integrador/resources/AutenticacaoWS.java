@@ -29,7 +29,7 @@ public class AutenticacaoWS {
 		System.out.println("ver se chegou aqui: "+user);
 		Usuario usuario = new Usuario();
 		System.out.println("chegou ate aqui...");
-		autenticaService.autenticaUsuario(user);
+		usuario = autenticaService.autenticaUsuario(user);
 		if(!usuario.equals(null)){
 			isAutenticated = true;
 		}

@@ -70,7 +70,7 @@ public class LeadRepositoryImpl  implements LeadRepository{
 			manager.getTransaction().begin();
 			StatusLead status = new StatusLead();
 			status.setLead(lead);
-			status.setStatus("LEAD");
+			status.setStatus("Leads");
 			lead.setStatusLead(status);
 			this.manager.persist(status);
 			this.manager.persist(lead);
@@ -84,12 +84,13 @@ public class LeadRepositoryImpl  implements LeadRepository{
 		}
 	}
 	
-	public List<Lead> buscarLeads() {
+	public List<Lead> buscarLeads(int idLoja) {
 		List<Lead> listLead = new ArrayList<>();
 			EntityManagerProducer emp = new EntityManagerProducer();
 			manager = emp.createEntityManager();
 			manager.getTransaction().begin();
-			Query query = manager.createQuery("from Lead");
+			Query query = manager.createQuery("from Lead where loja_id =:idLoja");
+			query.setParameter("idLoja", idLoja);
 			try {
 				listLead = (ArrayList<Lead>) query.getResultList();
 			return listLead;
@@ -100,14 +101,15 @@ public class LeadRepositoryImpl  implements LeadRepository{
 		}
 	}
 	
-	public List<Lead> buscarLeadsPorId(int id) {
+	public List<Lead> buscarLeadsPorId(int id, int idLoja) {
 		try {
 			EntityManagerProducer emp = new EntityManagerProducer();
 			manager = emp.createEntityManager();
 			this.manager.getTransaction().begin();
 			Query query = this.manager
-					.createQuery("from Lead where idLead =:id");
+					.createQuery("from Lead where idLead =:id and loja_id =:idLoja");
 			query.setParameter("id", id);
+			query.setParameter("idLoja", idLoja);
 			List<Lead> leads = query.getResultList();
 			System.out.println("Leads.. "+ leads);
 			return leads;
@@ -120,14 +122,15 @@ public class LeadRepositoryImpl  implements LeadRepository{
 		}
 	}
 	
-	public List<Lead> buscarLeadsPorStatus(String status) {
+	public List<Lead> buscarLeadsPorStatus(String status, int idLoja) {
 		try {
 			EntityManagerProducer emp = new EntityManagerProducer();
 			manager = emp.createEntityManager();
 			this.manager.getTransaction().begin();
 			Query query = this.manager
-					.createQuery("select l from Lead l inner join l.statusLead sl where sl.status =:status");
+					.createQuery("select l from Lead l inner join l.statusLead sl where sl.status =:status and l.loja.id =:idLoja");
 			query.setParameter("status", status);
+			query.setParameter("idLoja", idLoja);
 			List<Lead> leads = query.getResultList();
 			System.out.println("Leads.. "+ leads);
 			return leads;
@@ -146,9 +149,10 @@ public class LeadRepositoryImpl  implements LeadRepository{
 			
 			manager = emp.createEntityManager();
 			manager.getTransaction().begin();
+			int idLoja = lead.getLoja().getId();
 			
 			Query query = manager.createQuery("update Lead set nome = :nomeLead, email = :emailLead, valorOportunidade = :valorOportunidade, telefone = :telefoneLead, " +
-    				"mensagem = :mensagemLead, cpf = :cpfLead, tipoForm = :tipoForm, endereco = :enderecoLead where idLead = :idLead");
+    				"mensagem = :mensagemLead, cpf = :cpfLead, tipoForm = :tipoForm, endereco = :enderecoLead where idLead = :idLead and loja_id =:idLoja");
 			
 			query.setParameter("nomeLead", lead.getNome());
 			query.setParameter("emailLead", lead.getEmail());
@@ -159,6 +163,7 @@ public class LeadRepositoryImpl  implements LeadRepository{
 			query.setParameter("tipoForm", lead.getTipoForm());
 			query.setParameter("enderecoLead", lead.getEndereco());
 			query.setParameter("idLead", lead.getIdLead());
+			query.setParameter("idLoja", idLoja);
 			int result = query.executeUpdate();
 			
 		} catch (Exception e) {

@@ -1,6 +1,9 @@
 package br.com.integrador.repository;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -44,11 +47,16 @@ public class AnotacaoRepositoryImpl implements AnotacaoRepository {
 			manager = emp.createEntityManager();
 			manager.getTransaction().begin();
 			List<Lead> leadList = new ArrayList<Lead>();
+			DateFormat dateformat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 			Lead lead = new Lead();
-			
+			Date date = new Date();
+			anotacao.setData(dateformat.format(date));
+			System.out.println("data: "+anotacao.getData());
 			LeadRepositoryImpl leadRepo = new LeadRepositoryImpl();
 			
-			leadList = leadRepo.buscarLeadsPorId(anotacao.getLead().getIdLead());
+			int idLoja= anotacao.getLead().getLoja().getId();
+			
+			leadList = leadRepo.buscarLeadsPorId(anotacao.getLead().getIdLead(), idLoja);
 			lead = leadList.get(0);
 			anotacao.setLead(lead);
 			 this.manager.merge(anotacao);

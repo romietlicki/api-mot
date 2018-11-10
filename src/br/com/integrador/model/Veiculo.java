@@ -16,6 +16,7 @@ import javax.persistence.Table;
 
 import org.codehaus.jackson.annotate.JsonBackReference;
 import org.codehaus.jackson.annotate.JsonCreator;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonManagedReference;
 import org.codehaus.jackson.annotate.JsonProperty;
 
@@ -183,7 +184,8 @@ public class Veiculo {
 		this.loja = loja;
 	}
 	@JsonManagedReference
-	@OneToMany(mappedBy = "veiculo", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "veiculo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JsonIgnore
 	public List<Lead> getLead() {
 		return lead;
 	}

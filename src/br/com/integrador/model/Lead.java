@@ -1,5 +1,6 @@
 package br.com.integrador.model;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -14,10 +15,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.codehaus.jackson.annotate.JsonBackReference;
 import org.codehaus.jackson.annotate.JsonCreator;
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonManagedReference;
 import org.codehaus.jackson.annotate.JsonProperty;
 
@@ -32,6 +34,7 @@ public class Lead {
 	private int idLead;
 	private String nome;
 	private String email;
+	private Date data;
 	private Double valorOportunidade;
 	private String telefone;
 	private String mensagem;
@@ -53,6 +56,7 @@ public class Lead {
 	public Lead(@JsonProperty("idLead") int idLead,
 			@JsonProperty("nome") String nome,
 			@JsonProperty("email") String email,
+			@JsonProperty("data") Date data,
 			@JsonProperty("valorOportunidade") Double valorOportunidade,
 			@JsonProperty("telefone") String telefone,
 			@JsonProperty("mensagem") String mensagem,
@@ -69,6 +73,7 @@ public class Lead {
 		this.idLead = idLead;
 		this.nome = nome;
 		this.email = email;
+		this.data = data;
 		this.valorOportunidade = valorOportunidade;
 		this.telefone = telefone;
 		this.mensagem = mensagem;
@@ -77,6 +82,7 @@ public class Lead {
 		this.veiculo = veiculo;
 		this.cpf = cpf;
 		this.tipoForm = tipoForm;
+		this.endereco = endereco;
 		this.usuario = usuario;
 		this.tarefa = tarefa;
 		this.anotacao = anotacao;
@@ -104,6 +110,16 @@ public class Lead {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	@Temporal(TemporalType.DATE)
+	public Date getData() {
+		return data;
+	}
+
+	public void setData(Date data) {
+		this.data = data;
+	}
+
 	@Column(nullable = true, length = 100)
 	public Double getValorOportunidade() {
 		return valorOportunidade;

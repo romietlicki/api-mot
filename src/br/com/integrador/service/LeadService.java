@@ -26,16 +26,16 @@ public class LeadService {
 		this.leadRepositoryImpl.adicionarNovoLead(lead);
 	}
 	
-	public List<Lead> buscarLeads() {
-		return this.leadRepositoryImpl.buscarLeads();
+	public List<Lead> buscarLeads(int idLoja) {
+		return this.leadRepositoryImpl.buscarLeads(idLoja);
 	}
 	
-	public List<Lead> buscarLeadsPorId(int id){
-		return leadRepositoryImpl.buscarLeadsPorId(id);
+	public List<Lead> buscarLeadsPorId(int id, int idLoja){
+		return leadRepositoryImpl.buscarLeadsPorId(id,idLoja);
 	}
 	
-	public List<Lead> buscarLeadsPorStatus(String status){
-		return leadRepositoryImpl.buscarLeadsPorStatus(status);
+	public List<Lead> buscarLeadsPorStatus(String status, int idLoja){
+		return leadRepositoryImpl.buscarLeadsPorStatus(status, idLoja);
 	}
 	
 	public void atualizaLead(Lead lead) {

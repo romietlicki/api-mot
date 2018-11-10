@@ -1,5 +1,6 @@
 package br.com.integrador.model;
 
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,6 +26,7 @@ public class Anotacao {
 	
 	private int idAnotacao;
 	private String anotacao;
+	private String data;
 	private Lead lead;
 	
 	public Anotacao(){
@@ -34,10 +36,12 @@ public class Anotacao {
 	@JsonCreator
 	public Anotacao(@JsonProperty("idAnotacao") int idAnotacao,
 			@JsonProperty("anotacao") String anotacao,
+			@JsonProperty("data") String data,
 			@JsonProperty("lead") Lead lead) {
 		super();
 		this.idAnotacao = idAnotacao;
 		this.anotacao = anotacao;
+		this.data = data;
 		this.lead = lead;
 	}
 	
@@ -57,8 +61,17 @@ public class Anotacao {
 		this.anotacao = anotacao;
 	}
 	
+	@Column(nullable = false, length = 70)
+	public String getData() {
+		return data;
+	}
+
+	public void setData(String data) {
+		this.data = data;
+	}
+
 	@JsonBackReference
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
 	@JoinColumn(name = "lead_id", nullable = true)
 	public Lead getLead() {
 		return lead;

@@ -32,6 +32,7 @@ public class Empresa {
 	private String telefone;
 	private List<Lead> lead;
 	private List<Veiculo> veiculo;
+	private List<Usuario> usuario;
 	
 	public Empresa(){
 		super();
@@ -46,7 +47,8 @@ public class Empresa {
 			@JsonProperty("email") String email,
 			@JsonProperty("telefone") String telefone,
 			@JsonProperty("lead") List<Lead> lead,
-			@JsonProperty("veiculo") List<Veiculo> veiculo) {
+			@JsonProperty("veiculo") List<Veiculo> veiculo,
+			@JsonProperty("usuario") List<Usuario> usuario) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -56,6 +58,7 @@ public class Empresa {
 		this.telefone = telefone;
 		this.lead = lead;
 		this.veiculo = veiculo;
+		this.usuario = usuario;
 	}
 	
 	@Id
@@ -122,5 +125,17 @@ public class Empresa {
 	public void setVeiculo(List<Veiculo> veiculo) {
 		this.veiculo = veiculo;
 	}
+
+	@JsonManagedReference
+	@OneToMany(mappedBy = "loja", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	public List<Usuario> getUsuario() {
+		return usuario;
+	}
+
+
+	public void setUsuario(List<Usuario> usuario) {
+		this.usuario = usuario;
+	}
+	
 	
 }

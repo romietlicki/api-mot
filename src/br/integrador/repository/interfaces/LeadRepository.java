@@ -12,12 +12,12 @@ import br.com.integrador.model.StatusLead;
 public interface LeadRepository {
 	
 	public abstract void recebeMensagemCliente(Lead lead);
-	public abstract void updateStatusLead(StatusLead statusLead);
-	public abstract void adicionarNovoLead(Lead lead);
-	public abstract List<Lead> buscarLeads();
-	public List<Lead> buscarLeadsPorId(int id);
-	public abstract void atualizaLead(Lead lead);
+	public abstract void updateStatusLead(StatusLead statusLead);//verificar se ha necessidade de adicionar id da loja
+	public abstract void adicionarNovoLead(Lead lead);//ok
+	public abstract List<Lead> buscarLeads(int idLoja);//ok
+	public List<Lead> buscarLeadsPorId(int id, int idLoja);//ok
+	public abstract void atualizaLead(Lead lead);//ok
 	public abstract void deletarLead(Lead lead);
-	public abstract List<Lead> buscarLeadsPorStatus(String status);
+	public abstract List<Lead> buscarLeadsPorStatus(String status, int idLoja);//ok
 
 }

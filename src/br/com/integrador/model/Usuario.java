@@ -12,9 +12,12 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
 import org.codehaus.jackson.annotate.JsonCreator;
 import org.codehaus.jackson.annotate.JsonManagedReference;
 import org.codehaus.jackson.annotate.JsonProperty;
@@ -32,6 +35,7 @@ public class Usuario {
 	private String senha;
 	private String email;
 	private TipoUsuario tipo;
+	private Empresa loja;
 	private List<Lead> leads = new ArrayList<>();
 	
 
@@ -44,12 +48,14 @@ public class Usuario {
 			@JsonProperty("username") String username,
 			@JsonProperty("senha") String senha,
 			@JsonProperty("tipo") TipoUsuario tipo,
+			@JsonProperty("loja") Empresa loja,
 			@JsonProperty("leads") List<Lead> leads){
 		super();
 		this.id = id;
 		this.username = username;
 		this.senha = senha;
 		this.tipo = tipo;
+		this.loja = loja;
 		this.leads = leads;
 	}
 	
@@ -86,6 +92,17 @@ public class Usuario {
 	public void setTipo(TipoUsuario tipo) {
 		this.tipo = tipo;
 	}
+	
+	@JsonBackReference
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "loja_id", nullable = true)
+	public Empresa getLoja() {
+		return loja;
+	}
+
+	public void setLoja(Empresa loja) {
+		this.loja = loja;
+	}
 
 	@Column(nullable = true, length = 150)
 	public String getEmail() {
@@ -97,7 +114,7 @@ public class Usuario {
 	}
 
 	@JsonManagedReference
-	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
 	public List<Lead> getLeads() {
 		return leads;
 	}

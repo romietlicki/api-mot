@@ -1,6 +1,7 @@
 package br.com.integrador.resources;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -106,30 +107,32 @@ public class LeadWS {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void adicionarNovoLead(Lead lead){
 		lead.setValorOportunidade(lead.getValorOportunidade().equals(null) ? 0 : lead.getValorOportunidade());
+		lead.setData(new Date());
 		leadService.adicionarNovoLead(lead);
 	}
 	
 	@GET
-	@Path("/buscarLeads")
+	@Path("/buscarLeads/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Lead> buscarLeads(){
-		return leadService.buscarLeads();
+	@Consumes(MediaType.APPLICATION_JSON)
+	public List<Lead> buscarLeads(@PathParam("id")int idLoja){
+		return leadService.buscarLeads(idLoja);
 	}
 	
 	@GET
-	@Path("/buscarLeadsPorId/{id}")
+	@Path("/buscarLeadsPorId/{id},{idLoja}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public List<Lead> buscarLeadsPorId(@PathParam("id") int id) {
-		return leadService.buscarLeadsPorId(id);
+	public List<Lead> buscarLeadsPorId(@PathParam("id") int id, @PathParam("idLoja") int idLoja) {
+		return leadService.buscarLeadsPorId(id, idLoja);
 	}
 	
 	@GET
-	@Path("/buscarLeadPorStatus/{id}")
+	@Path("/buscarLeadPorStatus/{id},{idLoja}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public List<Lead> buscarLeadsPorStatus(@PathParam("id") String status){
-		return leadService.buscarLeadsPorStatus(status);
+	public List<Lead> buscarLeadsPorStatus(@PathParam("id") String status ,@PathParam("idLoja") int idLoja){
+		return leadService.buscarLeadsPorStatus(status,idLoja);
 	}
 	
 	@PUT
