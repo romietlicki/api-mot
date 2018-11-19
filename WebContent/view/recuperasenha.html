@@ -43,26 +43,39 @@ var myapp = angular.module('myappLogin', []);
 myapp.controller('loginController', function($scope, $http, $window){
 
 $scope.alterarSenha = function(){
-		
-	var primeiraSenha = $scope.senha;
-	var confirmaSenha = $scope.senhaConfirm;
 	
-		console.log({'user': $scope.nome, 'senha':$scope.senha,'tipo':$scope.tipo});
-		if(confirmaSenha == primeiraSenha){
-			
+	$scope.idUser='1';
+	$scope.email = 'rodrigo.mietlicki@gmail.com';
+	//$scope.senha = '1234567';
+	$scope.tipo = 'ADMINISTRADOR';
+	$scope.username = 'rodrigo.mietlicki';
+	$scope.endereco = 'Rua Pinheiro n. 350 Jacupiranga-SP';
+	$scope.nomeCompleto = 'RODRIGO RODRIGUES MIETLICKI';
+	$scope.telefone = '41992293528';
+	
+	var usuario = JSON.stringify({
+		'id':$scope.idUser,
+		'email': $scope.email,
+		//'senha': $scope.senha,
+		'tipo': $scope.tipo,
+		'username': $scope.username,
+		'endereco': $scope.endereco,
+		'nomeCompleto': $scope.nomeCompleto,
+		'telefone': $scope.telefone,
+		
+	})
+	
+		
 			 //$http.post("https://integrador-motorizei.herokuapp.com/integrador/autenticacao/autenticarUsuario",{'username': $scope.nome, 'senha':$scope.senha,'tipo':$scope.tipo})
-			 $http.post("http://localhost:8080/integrador/usuario/mudarSenha", {'username': $scope.nome, 'senha':$scope.senha})
+			 $http.put("http://localhost:8080/integrador/usuario/editarUsuario", usuario)
 	         .success(function (data, status, headers, config) {
-	        	alert('Senha alterada com sucesso!!');
+	        	alert('usuario alterado com sucesso!!');
 	        	$window.location.href = 'login.html';
 	         })
 	         .error(function (data, status, header, config) {
 	        	 alert('Houve um erro ao trocar a senha!')
 	        	 $window.location.reload();
 	         });
-		} else {
-			alert('Senhas nao conferem!');
-		}
 	};
 
 });

@@ -92,6 +92,7 @@ $scope.login = function(){
 		 $http.post("http://localhost:8080/integrador/autenticacao/autenticarUsuario",{'username': $scope.nome, 'senha':$scope.senha,'tipo':$scope.tipo})
 		 //$http.post("http://integrador.uh-app.com.br/api-mot/autenticacao/autenticarUsuario",{'username': $scope.nome, 'senha':$scope.senha,'tipo':$scope.tipo})
          .success(function (data, status, headers, config) {
+        	 console.log(data);
         	alert('Logado com sucesso!!');
         	$window.location.href = 'index.html';
          })
